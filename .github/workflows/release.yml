@@ -6,6 +6,9 @@ on:
       - 'v*'
   workflow_dispatch:
 
+permissions:
+  contents: write
+
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -32,21 +35,29 @@ jobs:
       
     - name: Create Release
       id: create_release
-      uses: actions/create-release@v1
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      uses: softprops/action-gh-release@v1
       with:
         tag_name: ${{ github.ref }}
-        release_name: Release ${{ github.ref }}
+        name: Release ${{ github.ref }}
         draft: false
         prerelease: false
-        
-    - name: Upload JAR to Release
-      uses: actions/upload-release-asset@v1
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      with:
-        upload_url: ${{ steps.create_release.outputs.upload_url }}
-        asset_path: ./target/bajaj-fin-round1-1.0.0.jar
-        asset_name: bajaj-fin-round1.jar
-        asset_content_type: application/java-archive 
+        files: target/bajaj-fin-round1-1.0.0.jar
+        body: |
+          ## BFHL Java Webhook Client
+          
+          This release contains the compiled JAR file for the BFHL hiring test webhook client.
+          
+          ### Features:
+          - Embedded SQL query solution
+          - JWT authentication
+          - Self-contained executable JAR
+          
+          ### Usage:
+          ```bash
+          java -jar bajaj-fin-round1-1.0.0.jar
+          ```
+          
+          ### What it does:
+          1. Sends your SQL query to the BFHL webhook endpoint
+          2. Uses embedded JWT for authentication
+          3. Returns the server response and HTTP status 
