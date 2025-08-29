@@ -1,3 +1,5 @@
+package com.bfhl;
+
 import java.io.*;
 import java.net.HttpURLConnection;
 import java.net.URL;
@@ -7,7 +9,7 @@ import java.util.stream.Collectors;
 public class Main {
     // === Hardcoded credentials (edit these, rebuild, then run) ===
     private static final String WEBHOOK = "https://bfhldevapigw.healthrx.co.in/hiring/testWebhook/JAVA";
-    private static final String ACCESS_TOKEN = "eyJhbGciOiJIUzI1NiJ9.eyJyZWdObyI6IjIyQkNFMjQ3NyIsIm5hbWUiOiJBcnlhbiBrdW1hciIsImVtYWlsIjoicy5hcnlhbi5rdW1hcjA0MEBnbWFpbC5jb20iLCJzdWIiOiJ3ZWJob29rLXVzZXIiLCJpYXQiOjE3NTY0NDU4MDQsImV4cCI6MTc1NjQ0NjcwNH0.xpS0QUMxNhlFG9fEh6A2OomseoVJizfXpojdqwwsqWY"; // <-- paste full JWT
+    private static final String ACCESS_TOKEN = "eyJhbGciOiJIUzI1NiJ9.eyJyZWdObyI6IjIyQkNFMjQ3NyIsIm5hbWUiOiJBcnlhbiBrdW1hciIsImVtYWlsIjoicy5hcnlhbi5rdW1hcjA0MEBnbWFpbC5jb20iLCJzdWIiOiJ3ZWJob29rLXVzZXIiLCJpYXQiOjE3NTY0NDgyNjMsImV4cCI6MTc1NjQ0OTE2M30.9bXkP8DjsJSoIo45wuZsD_lYsfjwiTK13NQ4eKbVCyY"; // <-- paste full JWT
 
     // === Embedded SQL Query ===
     private static final String SQL_QUERY = "SELECT p.amount AS salary, CONCAT(e.first_name, ' ', e.last_name) AS name, TIMESTAMPDIFF(YEAR, e.dob, CURDATE()) AS age, d.department_name FROM payments p JOIN employee e ON e.emp_id = p.emp_id JOIN department d ON d.department_id = e.department WHERE DAY(p.payment_time) <> 1 ORDER BY p.amount DESC LIMIT 1";
